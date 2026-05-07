@@ -50,7 +50,7 @@ exports.callback = async (req, res) => {
         );
 
         // Send token to frontend
-        res.redirect(`http://localhost:8080/api/test?token=${appToken}`);
+        res.redirect(`http://localhost:3000/auth/callback?token=${appToken}`);
         logger.log("App token :");
         logger.log(appToken);
 
