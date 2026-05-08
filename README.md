@@ -48,7 +48,6 @@ git clone https://github.com/Vabeeshan/Customer-Relationship-Management-App.git
 ## 🖥️ Step 2 — Backend Setup
 
 ```text
-cd Back-End
 npm install
 npm run dev
 
@@ -61,10 +60,10 @@ http://localhost:8080
 
 
 ## 🌐 Step 3 — Frontend Setup
-cd Front-End
+```text
 npm install
-npm start
-
+npm run dev
+```
 ✅ Frontend Runs On:
 
 http://localhost:3000
@@ -73,8 +72,67 @@ http://localhost:3000
 
 Create a MySQL database named:
 
-> CREATE DATABASE crm_db;
+```text
+-- CRM Database Structure
+-- Database: crm_db
 
+CREATE DATABASE IF NOT EXISTS crm_db;
+USE crm_db;
+
+-- =========================================
+-- TABLE: leads
+-- =========================================
+
+DROP TABLE IF EXISTS leads;
+
+CREATE TABLE leads (
+    id INT NOT NULL AUTO_INCREMENT,
+
+    leadName VARCHAR(255) DEFAULT NULL,
+    companyName VARCHAR(255) DEFAULT NULL,
+    email VARCHAR(255) DEFAULT NULL,
+    phone VARCHAR(20) DEFAULT NULL,
+
+    leadSource VARCHAR(100) DEFAULT NULL,
+    assignedSalesperson VARCHAR(100) DEFAULT NULL,
+
+    status VARCHAR(50) DEFAULT NULL,
+
+    estimatedDealValue DECIMAL(10,2) DEFAULT NULL,
+
+    createdAt TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+
+    updatedAt TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP
+    ON UPDATE CURRENT_TIMESTAMP,
+
+    PRIMARY KEY (id)
+);
+
+-- =========================================
+-- TABLE: notes
+-- =========================================
+
+DROP TABLE IF EXISTS notes;
+
+CREATE TABLE notes (
+    id INT NOT NULL AUTO_INCREMENT,
+
+    leadId INT NOT NULL,
+
+    noteContent TEXT NOT NULL,
+
+    createdBy VARCHAR(100) DEFAULT NULL,
+
+    createdAt TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+
+    PRIMARY KEY (id),
+
+    CONSTRAINT fk_notes_lead
+        FOREIGN KEY (leadId)
+        REFERENCES leads(id)
+        ON DELETE CASCADE
+);
+```
 <br>
 
 # 🔧 Required Environment Variables (.env)
